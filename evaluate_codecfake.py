@@ -81,11 +81,8 @@ if __name__ == "__main__":
 
     #print(C1_eer,C2_eer,C3_eer,C4_eer,C5_eer,C6_eer,C7_eer)
 
-    # 将所有值放入一个列表
     values = [C1_eer, C2_eer, C3_eer, C4_eer, C5_eer, C6_eer, C7_eer]
 
-    # 打印表头
     print("C1\tC2\tC3\tC4\tC5\tC6\tC7\tavg")
-    # 打印每一行的值，保留两位小数
     avg =sum(values)/len(values)
     print("\t".join(f"{v * 100:.2f}" for v in values)+ f"\t{avg * 100:.2f}")
