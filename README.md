@@ -57,7 +57,13 @@ XLSR-EMA-for-UADD/
 
 ## ⚙️ Environment Setup
 
-We used **Python 3.7** and **CUDA 11.8** for this project. If you're using a different environment, please install the appropriate PyTorch version from [PyTorch Stable Releases](https://download.pytorch.org/whl/torch_stable.html).
+The project was developed and tested using the following hardware and software configuration:
+
+- **GPU**: NVIDIA RTX 4090  
+- **Python**: 3.7  
+- **CUDA**: 11.8
+
+ If you're using a different environment, please install the appropriate PyTorch version from [PyTorch Stable Releases](https://download.pytorch.org/whl/torch_stable.html).
 
 ```
 $ git clone https://github.com/sonumb-z/XLSR-EMA-for-UADD
