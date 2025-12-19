@@ -92,14 +92,14 @@ def SSI_additive_noise(x,SNRmin,SNRmax,nBands,minF,maxF,minBW,maxBW,minCoeff,max
     return x
 
 
-"""def SSI_additive_noise2(signal,SNRmin,SNRmax,nBands,minF,maxF,minBW,maxBW,minCoeff,maxCoeff,minG,maxG,fs):
+def SSI_additive_noise2(signal,SNRmin,SNRmax,nBands,minF,maxF,minBW,maxBW,minCoeff,maxCoeff,minG,maxG,fs):
     snr_db = 20
     signal_power = np.mean(signal ** 2)
     snr_linear = 10 ** (snr_db / 10)
     noise_power = signal_power / snr_linear
     noise_std = np.sqrt(noise_power)
     noise = np.random.normal(0, noise_std, signal.shape)
-    return signal + noise"""
+    return signal + noise
 
 # Random SNR Augmentation (Realistic Scenario Simulation)
 def SSI_additive_noise3(signal):
