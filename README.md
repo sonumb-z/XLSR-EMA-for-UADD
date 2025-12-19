@@ -291,12 +291,6 @@ CUDA_VISIBLE_DEVICES=0 python main.py \
   </tbody>
 </table>
 
-### Robustness Analysis (Data Augmentation Comparison)
-
-We compared our proposed method with different RawBoost data augmentation techniques. The methods are defined as follows:
-* **Method 1**: Convolutive noise
-* **Method 2**: Impulsive noise
-* **Method 3**: Coloured additive noise
 
 ### Robustness Analysis (Data Augmentation Comparison)
 
