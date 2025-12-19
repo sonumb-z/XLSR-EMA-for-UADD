@@ -1,7 +1,7 @@
-# Universal Audio Deepfake Detection Using Pretrained XLS-R and Efficient Multi-Scale Attention
+# Audio Deepfake Detection Using Pretrained XLS-R and Efficient Multi-Scale Attention
 
 This repository contains our implementation of the paper:
- **"Universal Audio Deepfake Detection Using Pretrained XLS-R and Efficient Multi-Scale Attention"**
+ **"Audio Deepfake Detection Using Pretrained XLS-R and Efficient Multi-Scale Attention"**
 
 ------
 
@@ -236,15 +236,60 @@ CUDA_VISIBLE_DEVICES=0 python main.py \
 
 ### Ablation Studies
 
-**Table 3: Ablation study results across various configurations and datasets.** The evaluation metric is EER(%). *g*: Number of EMA groups. *ITW*: In-The-Wild. *Codec⁺*: Codecfake Test.
+<p><strong>Table 3: Ablation study results across various configurations and datasets.</strong> The evaluation metric is EER(%). <em>g</em>: Number of EMA groups. <em>ITW</em>: In-The-Wild. <em>Codec⁺</em>: Codecfake Test.</p>
 
-| Ablation | Cfg. | 21LA | 21DF | ITW | Codec⁺ |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| ours | g=1 | **3.44** | **1.24** | **5.25** | 4.64 |
-| | g=2 | 3.69 | 1.28 | 6.55 | **3.81** |
-| w/o EMA | SLS | 4.77 | 1.31 | 6.25 | 4.02 |
-| | - | 3.56 | 1.32 | 6.73 | 3.81 |
-| w/o DA | g=1 | 5.91 | 2.23 | 6.61 | 3.99 |
+<table>
+  <thead>
+    <tr>
+      <th align="left">Ablation</th>
+      <th align="center">Cfg.</th>
+      <th align="center">21LA</th>
+      <th align="center">21DF</th>
+      <th align="center">ITW</th>
+      <th align="center">Codec⁺</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2" align="left">ours</td>
+      <td align="center">g=1</td>
+      <td align="center"><strong>3.44</strong></td>
+      <td align="center"><strong>1.24</strong></td>
+      <td align="center"><strong>5.25</strong></td>
+      <td align="center">4.64</td>
+    </tr>
+    <tr>
+      <td align="center">g=2</td>
+      <td align="center">3.69</td>
+      <td align="center">1.28</td>
+      <td align="center">6.55</td>
+      <td align="center"><strong>3.81</strong></td>
+    </tr>
+    <tr>
+      <td rowspan="2" align="left">w/o EMA</td>
+      <td align="center">SLS</td>
+      <td align="center">4.77</td>
+      <td align="center">1.31</td>
+      <td align="center">6.25</td>
+      <td align="center">4.02</td>
+    </tr>
+    <tr>
+      <td align="center">-</td>
+      <td align="center">3.56</td>
+      <td align="center">1.32</td>
+      <td align="center">6.73</td>
+      <td align="center">3.81</td>
+    </tr>
+    <tr>
+      <td align="left">w/o DA</td>
+      <td align="center">g=1</td>
+      <td align="center">5.91</td>
+      <td align="center">2.23</td>
+      <td align="center">6.61</td>
+      <td align="center">3.99</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Robustness Analysis (Data Augmentation Comparison)
 
