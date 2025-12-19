@@ -298,14 +298,94 @@ We compared our proposed method with different RawBoost data augmentation techni
 * **Method 2**: Impulsive noise
 * **Method 3**: Coloured additive noise
 
-**Table 4: Performance comparison (EER%) with different data augmentation methods across datasets**.
+### Robustness Analysis (Data Augmentation Comparison)
 
-| Method | 21LA (EER / min t-DCF) | 21DF (EER) | In the Wild (EER) | Codecfake C1 | C2 | C3 | C4 | C5 | C6 | C7 | avg |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| 1 | 5.14 / 0.3014 | 2.49 | 6.18 | 0.08 | **0.82** | 0.46 | 0.45 | 0.24 | **2.14** | **17.96** | **3.16** |
-| 2 | 4.15 / 0.2836 | 1.40 | 6.66 | **0.07** | 1.30 | **0.36** | 0.98 | 0.18 | 2.75 | 26.66 | 4.62 |
-| 3 | 4.26 / 0.2773 | 1.35 | 6.37 | 0.09 | 1.31 | 0.62 | 0.48 | 0.26 | 3.01 | 20.89 | 3.81 |
-| **Ours** | **3.44 / 0.270** | **1.24** | **5.25** | 0.08 | 1.12 | 0.45 | **0.42** | **0.17** | 3.52 | 26.71 | 4.64 |
+We compared our proposed method with different RawBoost data augmentation techniques. The methods are defined as follows:
+* **Method 1**: Convolutive noise
+* **Method 2**: Impulsive noise
+* **Method 3**: Coloured additive noise
+
+<p><strong>Table 4: Performance comparison (EER%) with different data augmentation methods across datasets.</strong> Bold indicates the best performance.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2" align="center">Method</th>
+      <th rowspan="2" align="center">21LA</th>
+      <th rowspan="2" align="center">21DF</th>
+      <th rowspan="2" align="center">In the Wild</th>
+      <th colspan="8" align="center">codecfake</th>
+    </tr>
+    <tr>
+      <th align="center">C1</th>
+      <th align="center">C2</th>
+      <th align="center">C3</th>
+      <th align="center">C4</th>
+      <th align="center">C5</th>
+      <th align="center">C6</th>
+      <th align="center">C7</th>
+      <th align="center">avg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">1</td>
+      <td align="center">5.14/0.3014</td>
+      <td align="center">2.49</td>
+      <td align="center">6.18</td>
+      <td align="center">0.08</td>
+      <td align="center"><strong>0.82</strong></td>
+      <td align="center">0.46</td>
+      <td align="center">0.45</td>
+      <td align="center">0.24</td>
+      <td align="center"><strong>2.14</strong></td>
+      <td align="center"><strong>17.96</strong></td>
+      <td align="center"><strong>3.16</strong></td>
+    </tr>
+    <tr>
+      <td align="center">2</td>
+      <td align="center">4.15/0.2836</td>
+      <td align="center">1.40</td>
+      <td align="center">6.66</td>
+      <td align="center"><strong>0.07</strong></td>
+      <td align="center">1.30</td>
+      <td align="center"><strong>0.36</strong></td>
+      <td align="center">0.98</td>
+      <td align="center">0.18</td>
+      <td align="center">2.75</td>
+      <td align="center">26.66</td>
+      <td align="center">4.62</td>
+    </tr>
+    <tr>
+      <td align="center">3</td>
+      <td align="center">4.26/0.2773</td>
+      <td align="center">1.35</td>
+      <td align="center">6.37</td>
+      <td align="center">0.09</td>
+      <td align="center">1.31</td>
+      <td align="center">0.62</td>
+      <td align="center">0.48</td>
+      <td align="center">0.26</td>
+      <td align="center">3.01</td>
+      <td align="center">20.89</td>
+      <td align="center">3.81</td>
+    </tr>
+    <tr>
+      <td align="center">Ours</td>
+      <td align="center"><strong>3.44/0.270</strong></td>
+      <td align="center"><strong>1.24</strong></td>
+      <td align="center"><strong>5.25</strong></td>
+      <td align="center">0.08</td>
+      <td align="center">1.12</td>
+      <td align="center">0.45</td>
+      <td align="center"><strong>0.42</strong></td>
+      <td align="center"><strong>0.17</strong></td>
+      <td align="center">3.52</td>
+      <td align="center">26.71</td>
+      <td align="center">4.64</td>
+    </tr>
+  </tbody>
+</table>
 
 ------
 
