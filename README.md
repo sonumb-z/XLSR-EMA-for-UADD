@@ -59,14 +59,18 @@ XLSR-EMA-for-UADD/
 
 The project was developed and tested using the following hardware and software configuration:
 
-- **GPU**: NVIDIA RTX 4090  
-- **Python**: 3.7  
+- **GPU**: NVIDIA RTX 4090
+- **Python**: 3.7
 - **CUDA**: 11.8
 
- If you're using a different environment, please install the appropriate PyTorch version from [PyTorch Stable Releases](https://download.pytorch.org/whl/torch_stable.html).
+**Experimental Details & Reproducibility:**
 
-```
-$ git clone https://github.com/sonumb-z/XLSR-EMA-for-UADD
+Audio data are cropped or concatenated giving segments of approximately 4 seconds duration (64,600 samples). The Adam optimizer was configured with a learning rate of $10^{-6}$, a weight decay coefficient of 0, and a batch size of 10. Training proceeded for 100 epochs with an early stopping criterion (patience = 3). The model was trained on a single NVIDIA GeForce RTX 4090 GPU, and experimental results can be reproduced using the same random seed and GPU environment.
+
+If you're using a different environment, please install the appropriate PyTorch version from [PyTorch Stable Releases](https://download.pytorch.org/whl/torch_stable.html).
+
+```bash
+$ git clone [https://github.com/sonumb-z/XLSR-EMA-for-UADD](https://github.com/sonumb-z/XLSR-EMA-for-UADD)
 
 $ cd XLSR-EMA-for-UADD
 $ unzip fairseq-a54021305d6b3c4c5959ac9395135f63202db8f1.zip
@@ -87,7 +91,7 @@ $ pip install -r requirements.txt
 
 To train the model, run:
 
-```
+```bash
 CUDA_VISIBLE_DEVICES=0 python main.py \
     --lr=0.000001 \
     --batch_size=10 \
@@ -109,7 +113,7 @@ CUDA_VISIBLE_DEVICES=0 python main.py \
 
 To evaluate the pre-trained model on **ASVspoof 2021 DF**, **ASVspoof 2021 LA**, **In-the-Wild**, and **Codecfake**, modify the dataset paths accordingly and run:
 
-```
+```bash
 CUDA_VISIBLE_DEVICES=0 python main.py \
     --track=all \
     --model=ModelEMA \
@@ -128,7 +132,7 @@ CUDA_VISIBLE_DEVICES=0 python main.py \
 
 Run the following scripts to compute EER:
 
-```
+```bash
 echo "in_the_wild"
 python evaluate_in_the_wild.py ./scores/scores_In-the-Wild_best.txt ./keys eval
 
@@ -148,7 +152,7 @@ python evaluate_codecfake.py /lab/songziwen/data/Codecfake/label/ best
 
 #### ASVspoof 2021 LA:
 
-```
+```bash
 CUDA_VISIBLE_DEVICES=0 python main.py \
     --track=LA \
     --is_eval \
@@ -161,7 +165,7 @@ CUDA_VISIBLE_DEVICES=0 python main.py \
 
 #### ASVspoof 2021 DF:
 
-```
+```bash
 CUDA_VISIBLE_DEVICES=0 python main.py \
     --track=DF \
     --is_eval \
@@ -174,7 +178,7 @@ CUDA_VISIBLE_DEVICES=0 python main.py \
 
 #### In-the-Wild:
 
-```
+```bash
 CUDA_VISIBLE_DEVICES=0 python main.py \
     --track=In-the-Wild \
     --model=ModelEMA \
@@ -188,7 +192,7 @@ CUDA_VISIBLE_DEVICES=0 python main.py \
 
 #### Codecfake:
 
-```
+```bash
 CUDA_VISIBLE_DEVICES=0 python main.py \
     --track=codecfake \
     --is_eval \
@@ -201,14 +205,64 @@ CUDA_VISIBLE_DEVICES=0 python main.py \
 
 ------
 
-## 📊 Results Using Pre-Trained Model XLS-R AND EMA
+## 📊 Experimental Results & Analysis
 
-| Dataset          | EER (%) |
-| ---------------- | ------- |
-| ASVspoof 2021 LA | 3.44%   |
-| ASVspoof 2021 DF | 1.24%   |
-| In-the-Wild      | 5.25%   |
-| Codecfake        | 4.64%   |
+### Comparison with SOTA Methods
+
+**Table 1: Performance on In-The-Wild and Codecfake evaluation sets.** Bold indicates the best EER(%) performance.
+
+| System | In-The-Wild EER(%) | Codecfake EER(%) |
+| :--- | :---: | :---: |
+| RawNet2 [24] | 33.94 | 50.22 |
+| XLSR+AASIST [17] | 10.46 | - |
+| XLSR+TCM [25] | 7.79 | 35.72 |
+| XLSR+SLS [1] | 7.46 | 33.43 |
+| XLSR+Mamba [26] | 6.71 | 35.26 |
+| **Ours (XLSR+EMA)** | 7.90 | 28.78 |
+| **Ours + Add. Data** | **5.25** | **4.64** |
+
+**Table 2: Performance comparison with SOTA single systems on the ASVspoof 2021 LA and DF evaluation sets**.
+
+| System | 2021 LA EER(%) | 2021 LA min t-DCF | 2021 DF EER(%) |
+| :--- | :---: | :---: | :---: |
+| RawNet2 [24] | 5.31 | 0.310 | 22.38 |
+| SE-Rawformer [27] | 4.98 | 0.318 | 20.26 |
+| XLSR+ASSIST [17] | **0.82** | **0.206** | 2.85 |
+| WavLM+MFA [28] | 5.08 | - | 2.56 |
+| XLSR+SLS [1] | 2.87 | - | 1.92 |
+| XLSR+Mamba [26] | 0.93 | 0.208 | 1.88 |
+| **Ours (XLSR+EMA)** | 1.59 | 0.230 | 2.39 |
+| **Ours + Add. Data** | 3.44 | 0.270 | **1.24** |
+
+### Ablation Studies
+
+**Table 3: Ablation study results across various configurations and datasets.** The evaluation metric is EER(%). *g*: Number of EMA groups. *ITW*: In-The-Wild. *Codec⁺*: Codecfake Test.
+
+| Ablation | Cfg. | 21LA | 21DF | ITW | Codec⁺ |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| ours | g=1 | **3.44** | **1.24** | **5.25** | 4.64 |
+| | g=2 | 3.69 | 1.28 | 6.55 | **3.81** |
+| w/o EMA | SLS | 4.77 | 1.31 | 6.25 | 4.02 |
+| | - | 3.56 | 1.32 | 6.73 | 3.81 |
+| w/o DA | g=1 | 5.91 | 2.23 | 6.61 | 3.99 |
+
+### Robustness Analysis (Data Augmentation Comparison)
+
+We compared our proposed method with different RawBoost data augmentation techniques. The methods are defined as follows:
+* **Method 1**: Convolutive noise
+* **Method 2**: Impulsive noise
+* **Method 3**: Coloured additive noise
+
+**Table 4: Performance comparison (EER%) with different data augmentation methods across datasets**.
+
+| Method | 21LA (EER / min t-DCF) | 21DF (EER) | In the Wild (EER) | Codecfake C1 | C2 | C3 | C4 | C5 | C6 | C7 | avg |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| 1 | 5.14 / 0.3014 | 2.49 | 6.18 | 0.08 | **0.82** | 0.46 | 0.45 | 0.24 | **2.14** | **17.96** | **3.16** |
+| 2 | 4.15 / 0.2836 | 1.40 | 6.66 | **0.07** | 1.30 | **0.36** | 0.98 | 0.18 | 2.75 | 26.66 | 4.62 |
+| 3 | 4.26 / 0.2773 | 1.35 | 6.37 | 0.09 | 1.31 | 0.62 | 0.48 | 0.26 | 3.01 | 20.89 | 3.81 |
+| **Ours** | **3.44 / 0.270** | **1.24** | **5.25** | 0.08 | 1.12 | 0.45 | **0.42** | **0.17** | 3.52 | 26.71 | 4.64 |
+
+------
 
 ## 🙏 Acknowledgements
 
