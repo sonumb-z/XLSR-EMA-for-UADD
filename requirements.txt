@@ -26,6 +26,7 @@ furl==2.1.4
 gdown==4.7.3
 google-auth==2.38.0
 google-auth-oauthlib==0.4.6
+google-auth-oauthlib==0.4.6
 greenlet==3.1.1
 grpcio==1.62.3
 huggingface-hub==0.16.4
